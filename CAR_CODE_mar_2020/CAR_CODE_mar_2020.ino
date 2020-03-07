@@ -6,7 +6,7 @@ const int ignition = 18;
 const int selfstart = 5;
 const int trunk = 4;
 
-int del = 0;
+int del = 3;
 
 #include "BluetoothSerial.h"
 
@@ -71,13 +71,20 @@ void loop() {
   {
     digitalWrite(trunk, !digitalRead(trunk));
   }
-  
-  
-    
-  
- 
- 
-  
-  
+  if (ip == 121)
+  {
+    if (del == 0){
+      del = 3;
+    }
+    digitalWrite(ignition, HIGH);
+    delay(3000);
+    digitalWrite(selfstart,HIGH);
+    delay((del*1000));
+    digitalWrite(selfstart,LOW); 
+  }
+  if (ip == 122)
+    {
+    digitalWrite(selfstart,LOW)
+    } 
 }
 }

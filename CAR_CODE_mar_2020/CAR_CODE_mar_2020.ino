@@ -4,7 +4,7 @@ const int indicators = 21;
 const int doors = 19;
 const int ignition = 18;
 const int selfstart = 5;
-//const int diggy = 4;
+const int trunk = 4;
 
 int del = 0;
 
@@ -32,8 +32,8 @@ void setup() {
   digitalWrite(ignition, LOW);    //5
   pinMode(selfstart, OUTPUT);
   digitalWrite(selfstart, LOW);   //6
-  //pinMode(diggy, OUTPUT);
-  //digitalWrite(diggy, LOW);       //7
+  pinMode(trunk, OUTPUT);
+  digitalWrite(trunk, LOW);       //7
   
   
   
@@ -47,25 +47,37 @@ void loop() {
    int ip =  SerialBT.read();
    Serial.println(ip);
    
-  if (ip == 3)
-  {digitalWrite(headlight, !digitalRead(headlight));
+  if (ip == 125)
+  {
+    digitalWrite(doors,LOW);
   }
+  if (ip == 123)
+  {
+    digitalWrite(doors,HIGH);
+  }
+  if (ip == 126)
+  {
+    digitalWrite(headlight, !digitalRead(headlight));
+  }
+  if (ip == 124)
+  {
+    digitalWrite(horn, !digitalRead(horn));
+  }
+  if (ip == 120)
+  {
+    digitalWrite(indicators, !digitalRead(indicators));
+  }
+  if (ip == 119)
+  {
+    digitalWrite(trunk, !digitalRead(trunk));
+  }
+  
+  
+    
+  
  
-  if (ip == 0)
-  {digitalWrite(RELAY1, LOW);
-   digitalWrite(RELAY2, HIGH);
-   
-  } 
-  if (ip > 2)
-   {
-    del = ip*1000;
-   }
-  if (ip == 2)
-  {   
-    digitalWrite(RELAY3,HIGH);
-    Serial.println(del);
-    delay(del);
-    digitalWrite(RELAY3,LOW);
-    }
+ 
+  
+  
 }
 }

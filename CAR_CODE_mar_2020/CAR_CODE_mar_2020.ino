@@ -84,7 +84,12 @@ void loop() {
   }
   if (ip == 122)
     {
-    digitalWrite(selfstart,LOW)
-    } 
+    digitalWrite(selfstart,LOW);
+    }
+   else
+   {
+    del = ip;
+   
+   }
 }
 }

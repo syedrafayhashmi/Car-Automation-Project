@@ -6,8 +6,13 @@ const int ignition = 2;
 const int selfstart = 15;
 const int trunk = 13;
 const int ir = 12;
+const int car_state = 14;
 int del = 3;
 int count = 0;
+
+int bypassir = 0;
+int bypass_state = 0;
+
 #include "BluetoothSerial.h"
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -35,27 +40,18 @@ void setup() {
   pinMode(trunk, OUTPUT);
   digitalWrite(trunk, LOW);       //7
   pinMode(ir, INPUT);
-  
-  
-  
-  
+  pinMode(car_state,INPUT);
  }
 
 void loop() {
- int  irdata = digitalRead(ir);
+ 
   if (Serial.available()) {
     SerialBT.write(Serial.read());
   }
   if (SerialBT.available()) {
    int ip =  SerialBT.read();
    Serial.println(ip);
-  if(ip == 118)
-  {
-    irdata = 0;
-  }
- 
-  if (irdata == 0)
-  {
+
   if (ip == 125)
   {
     digitalWrite(doors,LOW);
@@ -80,18 +76,26 @@ void loop() {
   {
     digitalWrite(trunk, !digitalRead(trunk));
   }
-  if (ip == 121)
+    if(ip == 118)
   {
+    bypassir = 1;
+  }
+//
+  if (ip == 121)
+  { 
     if (del == 0){
       del = 3;
     }
+    int irdata = digitalRead(ir);
+    if (!irdata || bypassir)
+    {  
     digitalWrite(ignition, HIGH);
     delay(3000);
     digitalWrite(selfstart,HIGH);
     //delay((del*1000));
+    
     for (int i = 1; i<del*2+1;i++)
-    { 
-     
+    {      
       int ip =  SerialBT.read();
        Serial.println(ip);
       count+=1;
@@ -105,10 +109,17 @@ void loop() {
         digitalWrite(selfstart,LOW);
        }
        delay(500);
-     
+       
     }
     digitalWrite(selfstart,LOW); 
-  }
+    int car_data = digitalRead(car_state);
+    // considering recieving high signal if car doesn't start
+    if (car_data == 1) 
+    {
+      digitalWrite((ignition,LOW);
+    }
+  }}
+  //
   if (ip == 117)
   {
     digitalWrite(ignition,LOW);
@@ -118,6 +129,5 @@ void loop() {
     del = ip;
    
    }
-}
 }
 }

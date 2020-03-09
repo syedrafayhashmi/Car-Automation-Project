@@ -11,7 +11,6 @@ int del = 3;
 int count = 0;
 
 int bypassir = 0;
-int bypass_state = 0;
 
 #include "BluetoothSerial.h"
 

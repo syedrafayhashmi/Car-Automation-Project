@@ -78,7 +78,7 @@ void loop() {
   {
     digitalWrite(trunk, !digitalRead(trunk));
   }
-    if(ip == 118)
+    if(ip == 118) 
   {
     bypassir = 1;
   }
@@ -109,6 +109,7 @@ void loop() {
        if (ip == 122)
        {
         digitalWrite(selfstart,LOW);
+        break;
        }
        delay(500);
        

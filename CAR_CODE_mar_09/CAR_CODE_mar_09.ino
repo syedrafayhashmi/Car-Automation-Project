@@ -1,7 +1,7 @@
 const int headlight = 17;
 const int horn = 16;
 const int indicators = 4;
-const int doors = 0;
+const int doors = 18;
 const int ignition = 2;
 const int selfstart = 15;
 const int trunk = 13;
@@ -51,7 +51,7 @@ void loop() {
    int ip =  SerialBT.read();
    Serial.println(ip);
 
-  if (ip == 125)
+ if (ip == 125)
   {
     digitalWrite(doors,LOW);
   }
@@ -59,6 +59,9 @@ void loop() {
   {
     digitalWrite(doors,HIGH);
   }
+
+
+  
   if (ip == 126)
   {
     digitalWrite(headlight, !digitalRead(headlight));
@@ -115,7 +118,7 @@ void loop() {
     // considering recieving high signal if car doesn't start
     if (car_data == 1) 
     {
-      digitalWrite((ignition,LOW);
+      digitalWrite(ignition,LOW);
     }
   }}
   //
